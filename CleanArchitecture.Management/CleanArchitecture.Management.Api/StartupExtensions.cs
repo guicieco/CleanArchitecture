@@ -27,7 +27,6 @@ namespace CleanArchitecture.Management.Api
             });
 
             return builder.Build();
-
         }
 
         public static WebApplication ConfigurePipeline(this WebApplication app)

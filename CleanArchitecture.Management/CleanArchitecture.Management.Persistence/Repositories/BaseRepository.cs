@@ -1,8 +1,11 @@
 ﻿#region Using
 
+using Ardalis.Result;
 using CleanArchitecture.Management.Application.Contracts.Persistence;
+using CleanArchitecture.Management.Domain.Common;
 using CleanArchitecture.Management.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 #endregion
 
@@ -30,7 +33,7 @@ namespace CleanArchitecture.Management.Persistence.Repositories
 
         public async virtual Task<IReadOnlyList<T>> GetPagedReponseAsync(int page, int size)
         {
-            return await _dbContext.Set<T>().Skip((page - 1) * size).Take(size).AsNoTracking().ToListAsync();
+            return await _dbContext.Set<T>().Skip(page * size).Take(size).AsNoTracking().ToListAsync();
         }
 
         public async Task<T> AddAsync(T entity)

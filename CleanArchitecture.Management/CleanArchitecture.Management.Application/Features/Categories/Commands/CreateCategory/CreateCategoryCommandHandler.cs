@@ -10,7 +10,7 @@ using MediatR;
 
 namespace CleanArchitecture.Management.Application.Features.Categories.Commands.CreateCategory
 {
-    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Result<CreateCategoryDto>>
+    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Result<CreateCategoryVm>>
     {
         private readonly IAsyncRepository<CategoryEntity> _categoryRepository;
         private readonly IMapper _mapper;
@@ -21,21 +21,21 @@ namespace CleanArchitecture.Management.Application.Features.Categories.Commands.
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<Result<CreateCategoryDto>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<Result<CreateCategoryVm>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
             var validator = new CreateCategoryCommandValidator();
             var validationResult = await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Count > 0)
             {
-                return await Task.FromResult(Result<CreateCategoryDto>.Invalid());
+                return await Task.FromResult(Result<CreateCategoryVm>.Invalid());
             }
             
             var category = new CategoryEntity() { Name = request.Name };
             category = await _categoryRepository.AddAsync(category);
-            var categoryDto = _mapper.Map<CreateCategoryDto>(category);
+            var categoryDto = _mapper.Map<CreateCategoryVm>(category);
 
-            return await Task.FromResult(new Result<CreateCategoryDto>(categoryDto));
+            return await Task.FromResult(new Result<CreateCategoryVm>(categoryDto));
         }
     }
 }

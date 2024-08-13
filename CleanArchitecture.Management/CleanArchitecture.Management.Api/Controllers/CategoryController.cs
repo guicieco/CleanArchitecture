@@ -2,7 +2,11 @@
 
 using Ardalis.Result;
 using CleanArchitecture.Management.Application.Features.Categories.Commands.CreateCategory;
+using CleanArchitecture.Management.Application.Features.Categories.Commands.DeleteCategory;
+using CleanArchitecture.Management.Application.Features.Categories.Commands.UpdateCategory;
 using CleanArchitecture.Management.Application.Features.Categories.Queries.GetCategoriesList;
+using CleanArchitecture.Management.Application.Features.Categories.Queries.GetCategoryDetail;
+using CleanArchitecture.Management.Application.Features.Categories.Queries.GetCategoryPaged;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,29 +27,73 @@ namespace CleanArchitecture.Management.Api.Controllers
 
         [HttpGet("all", Name = "GetAllCategories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<CategoryListVm>>> GetAllCategories()
+        public async Task<ActionResult<List<CategoryListVm>>> GetAll()
         {
-            var dtos = await _mediator.Send(new GetCategoriesListQuery());
+            var categories = await _mediator.Send(new GetCategoriesListQuery());
+            return Ok(categories);
+        }
+
+        [HttpGet("{id}", Name = "GetCategoryById")]
+        public async Task<ActionResult<CategoryDetailVm>> GetById(Guid id)
+        {
+            var getCategoryDetailQuery = new GetCategoryDetailQuery() { Id = id };
+            var result = await _mediator.Send(getCategoryDetailQuery);
+
+            if (result.IsSuccess)
+                return Ok(result.Value);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet("/paged", Name = "GetPagedCategory")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<CategoryPagedVm>> GetPagedOrdersForMonth(string? name, int page, int size)
+        {
+            var getCategoryPagedQuery = new GetCategoryPagedQuery() { Name = name, Page = page, Size = size };
+            var dtos = await _mediator.Send(getCategoryPagedQuery);
+
             return Ok(dtos);
         }
 
-        //[Authorize]
-        //[HttpGet("allwithevents", Name = "GetCategoriesWithEvents")]
-        //[ProducesDefaultResponseType]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<ActionResult<List<CategoryEventListVm>>> GetCategoriesWithEvents(bool includeHistory)
-        //{
-        //    GetCategoriesListWithEventsQuery getCategoriesListWithEventsQuery = new GetCategoriesListWithEventsQuery() { IncludeHistory = includeHistory };
-
-        //    var dtos = await _mediator.Send(getCategoriesListWithEventsQuery);
-        //    return Ok(dtos);
-        //}
-
         [HttpPost(Name = "AddCategory")]
-        public async Task<ActionResult<Result<CreateCategoryDto>>> Create([FromBody] CreateCategoryCommand createCategoryCommand)
+        public async Task<ActionResult<Result<CreateCategoryVm>>> Create([FromBody] CreateCategoryCommand createCategoryCommand)
         {
-            var response = await _mediator.Send(createCategoryCommand);
-            return Ok(response);
+            var result = await _mediator.Send(createCategoryCommand);
+
+            if (result.IsSuccess)
+                return Ok(result.Value);
+
+            return BadRequest(result);
+        }
+
+        [HttpPut(Name = "UpdateCategory")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Update([FromBody] UpdateCategoryCommand updateCategoryCommand)
+        {
+            var result = await _mediator.Send(updateCategoryCommand);
+            
+            if (result.IsSuccess)
+                return Ok();
+
+            return BadRequest(result);
+        }
+
+        [HttpDelete("{id}", Name = "DeleteCategory")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var deleteCategoryCommand = new DeleteCategoryCommand() { Id = id };
+            var result = await _mediator.Send(deleteCategoryCommand);
+
+            if (result.IsSuccess)
+                return Ok();
+
+            return BadRequest(result);
         }
     }
 }

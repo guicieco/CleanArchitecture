@@ -21,6 +21,7 @@ namespace CleanArchitecture.Management.Persistence.Registrations
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryPagedRepository, CategoryPagedRepository>();
 
             return services;
         }
