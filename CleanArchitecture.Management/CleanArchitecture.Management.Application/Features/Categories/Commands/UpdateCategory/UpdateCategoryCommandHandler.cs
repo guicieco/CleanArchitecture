@@ -3,10 +3,8 @@
 using Ardalis.Result;
 using AutoMapper;
 using CleanArchitecture.Management.Application.Contracts.Persistence;
-using CleanArchitecture.Management.Application.Features.Categories.Commands.CreateCategory;
 using CleanArchitecture.Management.Domain.Core;
 using MediatR;
-using Microsoft.Extensions.Logging;
 
 #endregion
 
@@ -39,7 +37,7 @@ namespace CleanArchitecture.Management.Application.Features.Categories.Commands.
             if (validationResult.Errors.Count > 0)
                 return await Task.FromResult(Result.Invalid());
 
-            //entityToUpdate = _mapper.Map<CategoryEntity>(request);
+            entityToUpdate = _mapper.Map<CategoryEntity>(request);
 
             await _repository.UpdateAsync(entityToUpdate);
             return await Task.FromResult(Result.Success());
