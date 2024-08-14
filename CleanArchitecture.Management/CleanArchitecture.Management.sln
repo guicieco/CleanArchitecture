@@ -5,21 +5,19 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F45E1AAB-0362-4F78-9186-8A17AC90CFE5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C51E6B9E-C4D7-4FC2-AFB4-8A8CC50D8DC0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{76B72AD2-80FA-49FB-A793-B8B4E5AAD74F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F7BC87BC-ECDE-4690-A8D9-79E3F14FD58F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{1DDC8019-1AEB-4506-AF2D-7B39D984BC8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Management.Api", "CleanArchitecture.Management.Api\CleanArchitecture.Management.Api.csproj", "{5A1B0EDC-8298-49DB-982C-C4B47C0D56D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Management.Api", "CleanArchitecture.Management.Api\CleanArchitecture.Management.Api.csproj", "{5A1B0EDC-8298-49DB-982C-C4B47C0D56D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Management.Application", "CleanArchitecture.Management.Application\CleanArchitecture.Management.Application.csproj", "{16621916-AA91-4E57-B67B-5DF1C315EDF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Management.Application", "CleanArchitecture.Management.Application\CleanArchitecture.Management.Application.csproj", "{16621916-AA91-4E57-B67B-5DF1C315EDF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Management.Domain", "CleanArchitecture.Management.Domain\CleanArchitecture.Management.Domain.csproj", "{9A3E5569-FDA6-4D77-8919-F2870D5A0012}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Management.Domain", "CleanArchitecture.Management.Domain\CleanArchitecture.Management.Domain.csproj", "{9A3E5569-FDA6-4D77-8919-F2870D5A0012}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Management.Persistence", "CleanArchitecture.Management.Persistence\CleanArchitecture.Management.Persistence.csproj", "{C45D3E45-19E9-48D4-BCD4-F95A2FB8C6E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Management.Persistence", "CleanArchitecture.Management.Persistence\CleanArchitecture.Management.Persistence.csproj", "{C45D3E45-19E9-48D4-BCD4-F95A2FB8C6E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
